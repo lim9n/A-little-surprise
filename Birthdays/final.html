@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>শুভ জন্মদিন মুনাইমা! 🎉🎂</title>
+<style>
+body{
+  margin:0;
+  height:100vh;
+  overflow:hidden;
+  background:black;
+  color:white;
+  font-family:Arial;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+}
+
+/* stars */
+.star{
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{
+  from{opacity:0.2} to{opacity:1}
+}
+
+h1{
+  font-size:60px;
+  z-index:2;
+}
+
+/* message container */
+#msg{
+  font-size:24px;
+  max-width:600px;
+  margin-top:20px;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px; /* text and image spacing */
+}
+
+button{
+  margin-top:25px;
+  padding:15px 35px;
+  font-size:18px;
+  border:none;
+  border-radius:30px;
+  background:#ff4d6d;
+  color:white;
+  cursor:pointer;
+  z-index:2;
+}
+
+.firework{
+  position:absolute;
+  font-size:28px;
+  animation:explode 1.5s ease-out forwards;
+}
+@keyframes explode{
+  0%{transform:scale(0)}
+  80%{transform:scale(2)}
+  100%{opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background Music -->
+
+
+<h1>শুভ জন্মদিন, মুনাইমা! 🎉🎂</h1>
+
+<div id="msg"><span id="typewriter"></span></div>
+
+<audio id="bgMusic" loop>
+  <source src="Music/happy_birthday.mp3" type="audio/mp3">
+</audio>
+
+<button onclick="startShow()">এখানে ক্লিক করো ✨</button>
+
+
+<script>
+// ⭐ Star field
+for(let i=0;i<120;i++){
+  let star=document.createElement("div");
+  star.className="star";
+  star.style.left=Math.random()*100+"vw";
+  star.style.top=Math.random()*100+"vh";
+  star.style.animationDuration=(1+Math.random()*2)+"s";
+  document.body.appendChild(star);
+}
+
+// ✨ Typewriter text + image
+const text="কিছু মানুষ আছে, যারা শুধু তাদের থাকা দিয়েই পৃথিবীকে উজ্জ্বল করে তোলে। আশা করি এই ছোট্ট বিস্ময় তোমার জন্মদিনকে আরও আনন্দময় করে তুলেছে। তোমার জীবনে সবসময় সুখ, ভালোবাসা এবং সফলতা বর্ষিত হোক। শুভ জন্মদিন, মুনাইমা! 🎉🎂";
+let i=0;
+let imageShown=false;
+
+function typeWriter(){
+    if(i<text.length){
+        document.getElementById("typewriter").textContent += text.charAt(i);
+        i++;
+
+        // show image only once
+        if(!imageShown && i > 20){
+            let img = document.createElement("img");
+            img.src = "images/final.jpeg";
+            img.style.width = "150px";
+            img.style.borderRadius = "15px";
+            img.style.marginTop = "15px";
+            img.style.opacity = 0;
+            img.style.transition = "opacity 1s ease, transform 1s ease";
+            img.style.display = "block";
+            document.getElementById("msg").appendChild(img);
+
+            setTimeout(()=>{
+                img.style.opacity = 1;
+                img.style.transform = "translateY(-10px)";
+            },100);
+
+            imageShown = true;
+        }
+
+        setTimeout(typeWriter,40);
+    }
+}
+
+// 🎆 Fireworks
+function firework(){
+    let f=document.createElement("div");
+    f.className="firework";
+    f.innerHTML="🎆";
+    f.style.left=Math.random()*100+"vw";
+    f.style.top=Math.random()*80+"vh";
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1500);
+}
+
+// Start the show
+function startShow(){
+    var music = document.getElementById("bgMusic");
+    music.play();
+
+    typeWriter();
+    setInterval(firework,300);
+}
+
+// ⭐ Falling stars effect
+function createStar(){
+    let star = document.createElement("div");
+    star.innerHTML = "⭐";
+    star.style.position = "absolute";
+    star.style.left = Math.random()*100 + "vw";
+    star.style.top = "-10px";
+    star.style.fontSize = (10 + Math.random()*20) + "px";
+    star.style.opacity = 0.8;
+    star.style.transition = "top 4s linear, opacity 4s linear";
+    document.body.appendChild(star);
+    setTimeout(()=>{ star.style.top = "100vh"; star.style.opacity = 0; }, 50);
+    setTimeout(()=> star.remove(), 4000);
+}
+setInterval(createStar, 300);
+</script>
+
+</body>
+</html>

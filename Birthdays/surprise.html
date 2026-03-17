@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>জাদুর বই</title>
+  
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb);
+      font-family: nato sans, sans-serif;
+      overflow: hidden;
+    }
+
+    /* BOOK */
+    .book {
+      width: 600px;
+      height: 600px;
+      position: relative;
+      perspective: 2000px;
+    }
+
+    /* PAGE */
+    .page {
+      position: absolute;
+      width: 60%;
+      height: 100%;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+    }
+
+    /* Add image inside page */
+    .page img {
+      max-width: 60%;
+      max-height: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    /* COVER */
+    .cover {
+      position: absolute;
+      width: 60%;
+      height: 100%;
+      /* Harry Potter style gradient */
+      background: linear-gradient(145deg, #3b1a0b, #8b5a2b, #6b4226);
+      color: gold;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      transition: 1s;
+      transform-origin: left;
+      z-index: 2;
+      font-family: 'Garamond', serif;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      border: 3px solid #d4af37;
+    }
+
+    /* Add some Harry Potter magic style */
+    .cover h1 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 2em;
+      text-shadow: 2px 2px 5px #000;
+    }
+
+    .cover p {
+      font-size: 1.1em;
+      font-style: italic;
+      text-shadow: 1px 1px 3px #000;
+    }
+
+    /* OPEN ANIMATION */
+    .book.open .cover {
+      transform: rotateY(-180deg);
+    }
+
+    /* BUTTON */
+    button {
+      margin-top: 20px;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 20px;
+      background: #ff4d6d;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ff1a4d;
+    }
+
+    button:disabled {
+      background: gray;
+      cursor: not-allowed;
+    }
+
+    /* COUNTDOWN */
+    #countdown {
+      font-size: 28px;
+      color: #ff4d6d;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    /* ── RESPONSIVE: Tablet ── */
+    @media (max-width: 650px) {
+      .book {
+        width: 95vw;
+        height: 95vw;
+        max-width: 420px;
+        max-height: 420px;
+      }
+
+      .cover h1 {
+        font-size: 1.4em;
+      }
+
+      .cover p {
+        font-size: 0.9em;
+      }
+
+      #countdown {
+        font-size: 20px;
+      }
+
+      button {
+        font-size: 14px;
+        padding: 8px 18px;
+      }
+
+      .page h2 {
+        font-size: 1em;
+      }
+
+      .page h4 {
+        font-size: 0.75em;
+        padding: 0 8px;
+        text-align: center;
+      }
+    }
+
+    /* ── RESPONSIVE: Mobile ── */
+    @media (max-width: 420px) {
+      .book {
+        width: 92vw;
+        height: 92vw;
+        max-width: 340px;
+        max-height: 340px;
+      }
+
+      .cover h1 {
+        font-size: 1.1em;
+      }
+
+      .cover p {
+        font-size: 0.8em;
+      }
+
+      #countdown {
+        font-size: 16px;
+      }
+
+      button {
+        font-size: 12px;
+        padding: 7px 14px;
+        margin-top: 10px;
+      }
+
+      .page h2 {
+        font-size: 0.85em;
+        margin: 4px 0;
+      }
+
+      .page h4 {
+        font-size: 0.65em;
+        padding: 0 6px;
+        text-align: center;
+      }
+
+      .page img {
+        max-width: 70%;
+      }
+    }
+
+    /* ── RESPONSIVE: Very small phones (≤320px) ── */
+    @media (max-width: 320px) {
+      .book {
+        width: 90vw;
+        height: 90vw;
+      }
+
+      .cover h1 {
+        font-size: 0.95em;
+      }
+
+      .cover p {
+        font-size: 0.7em;
+      }
+
+      #countdown {
+        font-size: 13px;
+      }
+
+      button {
+        font-size: 11px;
+        padding: 6px 12px;
+      }
+
+      .page h2 {
+        font-size: 0.75em;
+      }
+
+      .page h4 {
+        font-size: 0.58em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+  <div class="book" id="book">
+
+    <div class="page">
+      <img src="images/surprise.jpeg" alt="Birthday Illustration">
+      <h2>টিক টিক টিক টিক⏳</h2>
+      <h4>For the girl who is brave enough to face the world, strong enough to handle the pain
+        and kind enough to spread love.Her special day is almost here.</h4>
+      <audio id="bgMusic" loop>
+        <source src="Music/surprise.mp3" type="audio/mp3">
+      </audio>
+      <div id="countdown"></div>
+      <a href="final.html">
+        <button id="surpriseBtn" disabled>ফাইনাল ম্যাজিক 🎁</button>
+      </a>
+    </div>
+
+    <div class="cover">
+      <h1> জাদুর বই 🪄</h1>
+      <p>ভিতরে কি হতে পারে গেস করো 🪄</p>
+      <button onclick="openBook()">বইটা খুলো 📖</button>
+    </div>
+
+  </div>
+
+  <script>
+
+    /* OPEN BOOK */
+    function openBook() {
+      document.getElementById("book").classList.add("open");
+
+      var music = document.getElementById("bgMusic");
+      music.play();
+    }
+
+    /* COUNTDOWN */
+    var birthday = new Date("Mar 27, 2026 00:00:02").getTime();
+
+    var timer = setInterval(function () {
+
+      var now = new Date().getTime();
+      var distance = birthday - now;
+
+      if (distance <= 0) {
+        clearInterval(timer);
+        document.getElementById("countdown").innerHTML = "🎉 শুভ জন্মদিন, সেতু! 🎂";
+        document.getElementById("surpriseBtn").disabled = false;
+        return;
+      }
+
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").innerHTML =
+        days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+    }, 1000);
+
+  </script>
+
+</body>
+
+</html>
